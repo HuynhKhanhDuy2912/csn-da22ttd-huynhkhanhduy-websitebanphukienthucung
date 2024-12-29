@@ -1,0 +1,112 @@
+﻿<!-- Sidebar -->
+<div class="sidebar">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+            <img src="~/Content/assets/images/avt.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+            <a href="#" class="d-block">Huỳnh Khánh Duy</a>
+        </div>
+    </div>
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+                <a href="/admin/category" class="nav-link">
+                    <i class="fas fa-list"></i>
+                    <p>
+                        &nbsp; Quản Lý Danh Mục
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/posts" class="nav-link">
+                    <i class="fas fa-mail-bulk"></i>
+                    <p>
+                        &nbsp; Quản Lý Bài Viết
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/news" class="nav-link">
+                    <i class="fas fa-paper-plane"></i>
+                    <p>
+                        &nbsp; Quản Lý Tin Tức
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-boxes"></i>
+                    <p>
+                        &nbsp; Quản lý sản phẩm
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/admin/productcategory" class="nav-link">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>&nbsp; Danh mục sản phẩm</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/products" class="nav-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <p>&nbsp; Sản phẩm</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/order" class="nav-link">
+                    <i class="fas fa-receipt"></i>
+                    <p>
+                        &nbsp; Quản Lý Đơn Hàng
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/account" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <p>
+                        &nbsp; Quản Lý Tài Khoản
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/role" class="nav-link">
+                    <i class="fas fa-users-cog"></i>
+                    <p>
+                        &nbsp; Phân quyền
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/settingsystem" class="nav-link">
+                    <i class="fas fa-cogs"></i>
+                    <p>
+                        &nbsp; Cấu hình hệ thống
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:document.getElementById('logOffForm').submit()" class="nav-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <p>
+                        &nbsp; Đăng xuất
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@if (Request.IsAuthenticated)
+{
+    <div style="display: none;">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
+        {
+            @Html.AntiForgeryToken()
+        }
+    </div>
+}

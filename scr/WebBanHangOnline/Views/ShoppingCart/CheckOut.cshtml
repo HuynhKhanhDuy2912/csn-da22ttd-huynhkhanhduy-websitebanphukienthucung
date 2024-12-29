@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Thanh toán";
+}
+
+<style>
+    .error{
+        color: red;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Thanh toán</h2>
+                    <p>Bạn hãy kiểm tra lại thông tin đơn hàng cho chính xác!</p>
+                </div>
+            </div>
+            <hr />
+            @if (ViewBag.CheckCart != null)
+            {
+                <div class="row">
+                    <div id = "show_success"></div>
+                    <div class="col-md-6">
+                        @Html.Action("Partial_CheckOut", "ShoppingCart")
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Action("Partial_Item_ThanhToan", "ShoppingCart")
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/category_price.js"></script>
+    <script>
+        function OnFail(rs) {
+            if (!rs.Success) {
+                $('#show_success').html("Bạn mua hàng thất bại. Xin vui lòng thử lại!");
+            }
+        }
+        $(document).ready(function () {
+            $.validator.addMethod("noNumbers", function (value, element) {
+                return this.optional(element) || /^[^0-9]+$/.test(value);
+            }, "Tên không được chứa số!");
+
+            $.validator.addMethod("noSpecialChars", function (value, element) {
+                return this.optional(element) || /^[a-zA-ZÀ-ỹ\s]+$/.test(value);
+            }, "Tên không được chứa ký tự đặc biệt!");
+
+            $.validator.addMethod("validPhone", function (value, element) {
+                return this.optional(element) || /^\d{10}$/.test(value);
+            }, "Số điện thoại phải đủ 10 số!");
+
+            $('#myForm').validate({
+                rules: {
+                    'CustomerName': {
+                        required: true,
+                        noNumbers: true,
+                        noSpecialChars: true
+                    },
+                    'Phone': {
+                        required: true,
+                        validPhone: true
+                    },
+                    'Address': {
+                        required: true
+                    },
+                    'Email': {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    'CustomerName': 'Họ tên không hợp lệ!',
+                    'Phone': 'Số điện thoại không hợp lệ!',
+                    'Address': 'Địa chỉ không được để trống!',
+                    'Email': 'Email không hợp lệ!'
+                }
+            });
+        });
+
+    </script>
+}
+
+

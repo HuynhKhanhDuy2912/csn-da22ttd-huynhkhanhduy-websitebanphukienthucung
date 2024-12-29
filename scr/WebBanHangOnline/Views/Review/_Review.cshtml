@@ -1,0 +1,53 @@
+﻿﻿@model WebBanHangOnline.Models.EF.ReviewProduct
+
+<style>
+    .user_star_rating li i {
+        color: #ccc;
+    }
+    .user_star_rating li i.fa-star {
+        color: gold;
+    }
+</style>
+
+<div class="add_review">
+    @using (Ajax.BeginForm("PostReview", "Review", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "load_review",
+        OnSuccess = "OnSuccessRE"
+
+    }, new { @Id = "review_form" }))
+    {
+        <script>
+            function OnSuccessRE(res) {
+                debugger;
+                if (res.Success) {
+                    $("#review_form")[0].reset();
+                }
+            }
+        </script>
+        @Html.AntiForgeryToken()
+        <div>
+            <h1>Thông tin cá nhân</h1>
+            @Html.TextBoxFor(x => x.FullName, new { @class = "form_input input_name", @placeholder = "Họ tên*", @id = "review_name" })
+            @Html.TextBoxFor(x => x.Email, new { @class = "form_input input_email", @placeholder = "Email*", @id = "review_email" })
+            @Html.HiddenFor(x => x.UserName)
+            @Html.HiddenFor(x => x.ProductId, new { @Value = ViewBag.ProductId })
+        </div>
+        <div>
+            <h1>Đánh giá của bạn:</h1>
+            <ul class="user_star_rating">
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+            </ul>
+            <input type="text" id="txtRate" name="Rate" value="4" style="visibility:hidden;" />
+            @Html.TextAreaFor(x => x.Content, new { @class = "input_review", @rows = "4", @placeholder = "Ý kiến của bạn ..." })
+        </div>
+        <div class="text-left text-sm-right">
+            <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">Gửi</button>
+        </div>
+    }
+</div>

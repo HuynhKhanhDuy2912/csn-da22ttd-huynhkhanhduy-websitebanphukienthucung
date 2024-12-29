@@ -1,0 +1,234 @@
+﻿@using WebBanHangOnline.Models.Common 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@SettingHelper.GetValue("SettingTitle")</title>
+    <link rel="icon" href="@SettingHelper.GetValue("SettingLogo")" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Colo Shop Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/Content/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/assets/styles/layout_styles.css">
+    @*@RenderSection("css", required: false)*@
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/responsive.css">
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Content/assets/js/jquery-3.2.1.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+</head>
+<body>
+    <div class="super_container">
+        <header class="header trans_300">
+            <div class="top_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="top_nav_left"><i class="fa-solid fa-phone"></i> Hotline: @SettingHelper.GetValue("SettingHotline") </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="top_nav_right">
+                                <ul class="top_nav_menu">
+                                    <li class="account">
+                                        @if (!Request.IsAuthenticated)
+                                        {
+                                            <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Tài Khoản<i class="fa fa-angle-down"></i></a>
+                                            <ul class="account_selection">
+                                                <li><a href="/account/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng nhập</a></li>
+                                                <li><a href="/account/register"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng ký</a></li>
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <a href="#">Xin chào @User.Identity.Name!<i class="fa fa-angle-down"></i></a>
+                                            <ul class="account_selection">
+                                                <li><a href="/account/profile"><i class="fa-solid fa-user" aria-hidden="true"></i>Profile</a></li>
+                                                <li><a href="/wishlist/index"><i class="fa-solid fa-heart"></i>Sản phẩm yêu thích</a></li>
+                                                <li><a href="javascript:document.getElementById('logOffForm').submit()"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i> Đăng xuất</a></li>
+                                            </ul>
+                                        }
+                                    </li>
+                                </ul>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <div style="display:none">
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Navigation -->
+
+            <div class="main_nav_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <div class="logo_container">
+                                <a href="/">pet<span>shop</span></a>
+                            </div>
+                            <nav class="navbar">
+                                @Html.Action("MenuTop", "Menu")
+                                <ul class="navbar_user">
+                                    @*@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                                        {
+                                            <li><a href="/admin/home"><i class="fa-solid fa-house" aria-hidden="true"></i></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/"><i class="fa-solid fa-house" aria-hidden="true"></i></a></li>
+                                        }*@
+                                    <li><a href="/admin/home"><i class="fa-solid fa-house" aria-hidden="true"></i></a></li>
+                                    <li class="checkout">
+                                        <a href="/gio-hang">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                            <span id="checkout_items" class="checkout_items">0</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="hamburger_container">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="fs_menu_overlay"></div>
+        <div class="hamburger_menu">
+            <div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+            <div class="hamburger_menu_content text-right">
+                <ul class="menu_top_nav">
+                    <li class="menu_item has-children">
+                        <a href="#">
+                            Tài khoản
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="menu_selection">
+                            <li><a href="/account/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng nhập</a></li>
+                            <li><a href="/account/register"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng kí</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @RenderBody()
+
+        <!-- Newsletter -->
+        @Html.Action("Partial_Subcrice", "Home")
+        <!-- Footer -->
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer--sup">
+                    <div class="col-3">
+                        <div class="footer--user">
+                            <div class="footer--user__logo">
+                                <div class="logo">
+                                    <a href="/"><img src="~/Content/assets/images/logo.jpg" width="40" /></a>
+                                </div>
+                                <div class="name">
+                                    <a href="/">PetShop</a>
+                                </div>
+                            </div>
+
+                            <div class="footer--user__information" style="margin-left: -80px">
+                                <ul>
+                                    <li>Hotline: 0972144904</li>
+                                    <li>Email: duy2912www@gmail.com</li>
+                                    <li>Địa chỉ: Thành Thới B, Mỏ Cày Nam, Bến Tre</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Về Chúng Tôi -->
+                    <div class="col-3">
+                        <div class="footer--container">
+                            <h2>Về Chúng Tôi</h2>
+                            <ul>
+                                <li><a href="/gioi-thieu">Giới thiệu</a></li>
+                                <li><a href="/lien-he">Liên hệ</a></li>
+                                <li><a href="#">Điều khoản sử dụng</a></li>
+                                <li><a href="#">Chính sách bảo mật</a></li>
+                                <li><a href="#">Hướng dẫn sử dụng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <!-- Liên kết nhanh -->
+                    <div class="col-3">
+                        <div class="footer--lienketnhanh">
+                            <h2>Liên kết nhanh</h2>
+                            <ul>
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/gioi-thieu">Giới thiệu</a></li>
+                                <li><a href="/san-pham">Sản phẩm</a></li>
+                                <li><a href="/tin-tuc">Tin tức</a></li>
+                                <li><a href="/khuyen-mai">Khuyến mãi</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Liên kết mạng xã hội(kết nối với chúng tôi) -->
+                    <div class="col-3">
+                        <div class="footer--ketnoivoichungtoi">
+                            <h2>Kết nối với chúng tôi</h2>
+                            <div class="icon_social">
+                                <ul>
+                                    <li><a href="https://www.facebook.com/huynhkhanhduy2912"><i class="fa-brands fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                                    <li><a href="https://www.instagram.com/khanhduy.2912/profilecard/?igsh=MTl1d3J2NGx0cXg3eQ=="><i class="fa-brands fa-instagram"></i></a></li>
+                                    <li><a href="https://s.net.vn/2TAg"><i class="fa-brands fa-tiktok"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="QRCode">
+                                <h3>Liên hệ Zalo trực tiếp</h3>
+                                <img src="~/Content/assets/images/qr.jpg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="row">
+            <div class="col-lg-12" style="background-color: #f8f9fa; text-align: center;">
+                <div class="cr" style=" color: maroon; font-size: 16px;">©2024 All Rights Reserverd. Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by Huỳnh Khánh Duy</div>
+            </div>
+        </div>
+        <button id="backToTop" title="Back to Top"><i class="fa-solid fa-angles-up"></i></button>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    <script src="~/Content/assets/styles/bootstrap4/popper.js"></script>
+    <script src="~/Content/assets/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/Content/assets/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/Content/assets/plugins/easing/easing.js"></script>
+    <script src="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/assets/js/custom.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jBackToTop.js"></script>
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/Scripts/jsShopping.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

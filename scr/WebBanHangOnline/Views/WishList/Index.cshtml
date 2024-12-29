@@ -1,0 +1,78 @@
+﻿﻿@model PagedList.PagedList<WebBanHangOnline.Models.EF.Wishlist>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/assets/styles/wishlist_styles.css" rel="stylesheet" />
+
+<div class="container news_section_container">
+    <div class="row" id="breadcrumbs">
+        <div class="col">
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Trang chủ </a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Sản phẩm yêu thích</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="title-news text-center"> Sản phẩm yêu thích</h1>
+        </div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        int count = 0;
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                var strImg = "";
+                var img = item.Product.ProductImage.FirstOrDefault(x => x.IsDefault);
+                if (img != null)
+                {
+                    strImg = img.Image;
+                }
+                <div class="col-md-6">
+                    <div class="row row-item-new">
+                        <div class="col-md-4">
+                            <div class="img-box">
+                                <a href="/chi-tiet/@item.Product.Alias-p@(item.Product.Id)" title="@item.Product.Title">
+                                    <img src="@strImg" alt="@item.Product.Title" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="content-box">
+                                <h3><a href="/chi-tiet/@item.Product.Alias-p@(item.Product.Id)" title="@item.Product.Title">@item.Product.Title</a></h3>
+                                <div class="description-box">
+                                    @item.Product.Description
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                count++;
+                if (count % 2 == 0)
+                {
+                    <div class="row"> </div>
+                }
+            }
+        </div>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6" style="text-align:right;">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    }
+</div>
+
+

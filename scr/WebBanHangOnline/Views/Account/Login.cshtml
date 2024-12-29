@@ -1,0 +1,65 @@
+﻿﻿@using WebBanHangOnline.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Đăng nhập";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+
+ <style>
+     .form-group{
+         margin-left: 90px;
+     }
+ </style>
+
+<div class="container d-flex justify-content-center align-items-center" style="margin-top: 160px;">
+    <div class="col-md-8">
+        <h2 class="text-center">Đăng nhập</h2>
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-2 control-label">Email</div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2 control-label">Mật khẩu</div>
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <div class="control-label">@Html.CheckBoxFor(m => m.RememberMe) Nhớ mật khẩu</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: right;">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Đăng nhập" class="btn btn-default btn-primary" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <p style="display:flex;justify-content:space-between">
+                            @Html.ActionLink("Đăng ký", "Register")
+                            <a href="/account/ForgotPassword">Quên mật khẩu</a>
+                        </p>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

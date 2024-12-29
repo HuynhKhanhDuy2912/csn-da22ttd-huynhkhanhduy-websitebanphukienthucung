@@ -1,0 +1,158 @@
+﻿@model IEnumerable<WebBanHangOnline.Models.EF.Product>
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/san-pham">Sản Phẩm</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.CateName</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+
+            <div class="sidebar">
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Danh mục</h5>
+                    </div>
+                    @Html.Action("MenuLeft", "Menu", new { id = ViewBag.CateId })
+                </div>
+
+                <!-- Price Range Filtering -->
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Lọc giá sản phẩm </h5>
+                    </div>
+                    <p>
+                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <input type="hidden" id="fromamount" />
+                        <input type="hidden" id="toamount" />
+                    </p>
+                    <div id="slider-range"></div>
+                    <div class="filter_button"><span>Lọc giá</span></div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+
+            <div class="main_content">
+
+                <!-- Products -->
+
+                <div class="products_iso">
+                    <div class="row">
+                        <div class="col">
+
+                            <!-- Product Sorting -->
+
+                            <div class="product_sorting_container product_sorting_container_top">
+                                <ul class="product_sorting">
+                                    <li>
+                                        <span class="type_sorting_text">Sắp xếp mặc định</span>
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="sorting_type">
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Mặc định</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><span>Giá</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Tên sản phẩm</span></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>Hiển thị</span>
+                                        <span class="num_sorting_text">4</span>
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="sorting_num">
+                                            <li class="num_sorting_btn"><span>4</span></li>
+                                            <li class="num_sorting_btn"><span>8</span></li>
+                                            <li class="num_sorting_btn"><span>12</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Product Grid -->
+
+                            <div class="product-grid">
+
+                                <!-- Product 1 -->
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var strImg = "";
+                                        var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
+                                        if (img != null)
+                                        {
+                                            strImg = img.Image;
+                                        }
+                                        var wishlist = item.Wishlists.FirstOrDefault(x => x.UserName == User.Identity.Name);
+                                        var isWishlist = false;
+                                        if (wishlist != null)
+                                        {
+                                            isWishlist = true;
+                                        }
+                                        <div class="product-item @item.ProductCategory.Alias">
+                                            <div class="product discount product_filter">
+                                                <div class="product_image">
+                                                    <a href="/chi-tiet/@item.Alias-p@(item.Id)">
+                                                        <img src="@strImg" alt="@item.Title">
+                                                    </a>
+                                                </div>
+                                                @if (isWishlist == true)
+                                                {
+                                                    <div data-id="@item.Id" class="favorite favorite_left active"></div>
+                                                }
+                                                else
+                                                {
+                                                    <div data-id="@item.Id" class="favorite favorite_left"></div>
+                                                }
+                                                @if (item.IsHome)
+                                                {
+                                                    <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
+                                                }
+                                                @if (item.PriceSale > 0)
+                                                {
+                                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>sale</span></div>
+                                                }
+                                                <div data-id="@item.Id" class="favorite favorite_left"></div>
+                                                <div class="product_info">
+                                                    <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id)">@item.Title</a></h6>
+                                                    @if (item.PriceSale > 0)
+                                                    {
+                                                        <div class="product_price">@WebBanHangOnline.Models.Common.Common.FormatNumber(item.PriceSale, 0) đ<span>@WebBanHangOnline.Models.Common.Common.FormatNumber(item.Price, 0) đ</span></div>
+                                                        <div style="display: none;" class="in_product_price">@item.PriceSale</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="product_price">@WebBanHangOnline.Models.Common.Common.FormatNumber(item.Price, 0) đ</div>
+                                                        <div style="display: none;" class="in_product_price">@item.Price</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">Thêm vào giỏ hàng</a></div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/category_price.js"></script>
+}

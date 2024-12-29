@@ -1,0 +1,36 @@
+﻿@model WebBanHangOnline.Models.EF.Subcribe
+
+<div class="newsletter">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="newsletter_tex">
+                    <div class="d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+                        <h4 style="padding-top: 15px;">Đăng ký nhận ưu đãi</h4>
+                    </div>
+                    <div>
+                        <p>Hãy đăng ký email của bạn để cập nhật thông tin khuyến mãi và được giảm giá 20% cho lần mua hàng đầu tiên của bạn</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                @using (Ajax.BeginForm("Subcrice", "Home", new AjaxOptions { OnSuccess = "OnSuccessSub" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <script>
+                        function OnSuccessSub(rs) {
+                            if (rs.Success) {
+                                alert("Cảm ơn bạn đã đăng ký!");
+                            }
+                        }
+                    </script>
+                    <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
+                        <input id="newsletter_email" type="email" name="Email" placeholder="Email của bạn" required="required" data-error="Valid email is required.">
+                        <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">Gửi</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

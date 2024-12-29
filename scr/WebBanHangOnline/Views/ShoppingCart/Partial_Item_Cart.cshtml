@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebBanHangOnline.Models.ShoppingCartItem>
+@using WebBanHangOnline.Models.Common
+
+<table class="table">
+    <tr class="text-center">
+        <th>STT</th>
+        <th>Ảnh sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Danh mục</th>
+        <th>Giá</th>
+        <th style="width: 80px;">Số lượng</th>
+        <th>Thành tiền</th>
+        <th style="width: 200px;"></th>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        var i = 0;
+        var tongtien = decimal.Zero;
+        foreach (var item in Model)
+        {
+            tongtien += item.TotalPrice;
+            <tr class="text-center" id="trow_@item.ProductId">
+                <td>@(i+1)</td>
+                <td>
+                    <a href="/chi-tiet/@item.Alias-p@(item.ProductId)"><img src="@item.ProductImg" width="70" /></a>
+                </td>
+                <td>
+                    <a href="/chi-tiet/@item.Alias-p@(item.ProductId)" style="color: black; text-decoration: none;">
+                        @item.ProductName
+                    </a>
+                </td>
+                <td>@item.CategoryName</td>
+                <td>@Common.FormatNumber(item.Price, 0)</td>
+                <td><input type="number" value="@item.Quantity" id="Quantity_@item.ProductId" class="form-control" style="color: black;"/></td>
+                <td>@Common.FormatNumber(item.TotalPrice, 0)</td>
+                <td>
+                    <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                    <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-primary btnUpdate">Cập nhật</a>
+                </td>
+            </tr>
+            i++;
+        }
+        <tr>
+            <th colspan="6" class="text-right">Tổng: </th>
+            <th class="text-center">@Common.FormatNumber(tongtien, 0)</th>
+            <th></th>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td colspan="8">Không có sản phẩm nào trong giỏ hàng. Vui lòng quay lại trang <b><a href="/san-pham">sản phẩm</a></b> để mua hàng!</td>
+        </tr>
+    }
+</table>

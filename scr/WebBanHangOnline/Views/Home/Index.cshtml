@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .discount{
+        margin-bottom: 100px;
+        font-family: sans-serif;
+    }
+</style>
+
+<body>
+    <div class="main_slider" style="background-image: url('@Url.Content("~/Content/assets/images/PETSHOP.png")');">
+        <div class="container fill_height">
+            <div class="row align-items-center fill_height">
+                <div class="col">
+                    <div class="main_slider_content">
+                        <div class="discount">
+                            <h4>Chào đón năm mới Xuân Ất Tỵ</h4>
+                            <h2>Giảm giá 30% cho tất cả sản phẩm nhân dịp cuối năm</h2>
+                            <div class="red_button shop_now_button"><a href="/san-pham">Mua Ngay</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    @Html.Action("MenuProductCategory", "Menu")
+
+
+    <!-- New Arrivals -->
+
+    <div class="new_arrivals">
+        <div class="container">
+            @Html.Action("MenuArrivals", "Menu")
+        </div>
+    </div>
+
+    <!-- Deal of the week -->
+
+    <div class="deal_ofthe_week">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="deal_ofthe_week_img">
+                        <img src="~/Content/assets/images/dealofweek.png" />
+                    </div>
+                </div>
+                <div class="col-lg-6 text-right deal_ofthe_week_col">
+                    <div class="deal_ofthe_week_content d-flex flex-column align-items-center float-right">
+                        <div class="section_title">
+                            <h2>Siêu Sale Hàng Tuần</h2>
+                        </div>
+                        <ul class="timer">
+                            <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                                <div id="day" class="timer_num">03</div>
+                                <div class="timer_unit">Ngày</div>
+                            </li>
+                            <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                                <div id="hour" class="timer_num">15</div>
+                                <div class="timer_unit">Giờ</div>
+                            </li>
+                            <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                                <div id="minute" class="timer_num">45</div>
+                                <div class="timer_unit">Phút</div>
+                            </li>
+                            <li class="d-inline-flex flex-column justify-content-center align-items-center">
+                                <div id="second" class="timer_num">23</div>
+                                <div class="timer_unit">Giây</div>
+                            </li>
+                        </ul>
+                        <div class="red_button shop_now_button"><a href="/san-pham">Mua Ngay</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Best Sellers -->
+    @Html.Action("Partial_ProductSale", "Products")
+
+    <!-- Benefit -->
+
+    <div class="benefit">
+        <div class="container">
+            <div class="row benefit_row">
+                <div class="col-lg-3 benefit_col">
+                    <div class="benefit_item d-flex flex-row align-items-center">
+                        <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                        <div class="benefit_content">
+                            <h6>Miễn phí vận chuyển</h6>
+                            <p>Hỗ trợ tiền ship 20k cho đơn từ 300k trở lên</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 benefit_col">
+                    <div class="benefit_item d-flex flex-row align-items-center">
+                        <div class="benefit_icon"><i class="fa-solid fa-gift"></i></div>
+                        <div class="benefit_content">
+                            <h6>Quà tặng hấp dẫn</h6>
+                            <p>Mua 1 đơn hàng từ 200.000đ tặng 1 phụ kiện xinh xắn</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 benefit_col">
+                    <div class="benefit_item d-flex flex-row align-items-center">
+                        <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                        <div class="benefit_content">
+                            <h6>Đổi hàng linh động</h6>
+                            <p>Có thể đổi trả sản phẩm trong vòng 10 ngày</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 benefit_col">
+                    <div class="benefit_item d-flex flex-row align-items-center">
+                        <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                        <div class="benefit_content">
+                            <h6>Thời gian mở cửa</h6>
+                            <p>Từ 08am-09pm thứ 2 đến thứ 7, Chủ nhật từ 08am-05pm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Blogs -->
+@Html.Action("Partial_News_Home", "News")

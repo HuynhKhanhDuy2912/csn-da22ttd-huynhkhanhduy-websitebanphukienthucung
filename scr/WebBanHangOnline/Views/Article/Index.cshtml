@@ -1,0 +1,99 @@
+﻿﻿@model PagedList.PagedList<WebBanHangOnline.Models.EF.Posts>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Khuyến mãi";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<style>
+    .news_section_container {
+        margin-top: 125px;
+        font-family: Arial;
+    }
+
+    .row-item-new {
+        margin-bottom: 20px;
+    }
+
+    .title-news {
+        font-size: 2rem;
+        border-bottom: 3px solid #FF7F50;
+        padding-bottom: 15px;
+        padding-top: 25px;
+        margin-bottom: 25px;
+        color: orangered;
+        font-weight: bold;
+    }
+
+    .img-box img {
+        width: 290px;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.9s ease;
+        transform: rotateY(0);
+    }
+
+     .img-box img:hover{
+         transform: rotateY(180deg);
+     }
+
+    #breadcrumbs {
+        height: 50px;
+    }
+    a {
+        color: firebrick;
+    }
+    a:hover{
+        color: red;
+    }
+</style>
+<div class="container news_section_container">
+    <div class="row" id="breadcrumbs">
+        <div class="col">
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Trang chủ </a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Khuyến mãi</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="title-news text-center">Các khuyến mãi của PetShop dành cho khách hàng</h1>
+        </div>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="row row-item-new">
+                <div class="col-md-3">
+                    <div class="img-box">
+                        <a href="/@item.Alias-m@(item.Id)" title="@item.Title"><img src="@item.Image" alt="@item.Title" /></a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="content-box">
+                        <h3><a href="/@item.Alias-m@(item.Id)" title="@item.Title">@item.Title</a></h3>
+                        <div class="description-box">
+                            @item.Description
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6" style="text-align:right;">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    }
+
+</div>
+

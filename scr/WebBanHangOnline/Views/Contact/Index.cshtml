@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Liên hệ";
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_responsive.css">
+
+<style>
+    #breadcrumbs {
+        height: 100px;
+    }
+
+    .control-label{
+        font-weight:bold;
+    }
+    .btn-primary{
+        margin-left: 415px;
+    }
+    .col-10{
+        border-radius: 3px;
+    }
+    input{
+        height: 40px;
+    }
+
+</style>
+<div class="container contact_container">
+    <div class="row" id="breadcrumbs">
+        <div class="col">
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Trang chủ </a></li>
+                    <li class="active"><a href="/lien-he"><i class="fa fa-angle-right" aria-hidden="true"></i>Liên hệ</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Map Container -->
+
+    <div class="row">
+        <div class="col-6" style="font-family: Arial;">
+            <h3>Thông tin liên hệ</h3>
+            <p><i class="fa-solid fa-location-dot" style="color: red;"></i> Địa chỉ: ấp Tân Viên xã Thành Thới B huyện Mỏ Cày Nam tỉnh Bến Tre</p>
+            <p><i class="fa-solid fa-phone" style="color: blue;"></i> Số điện thoại: 0972.144.904</p>
+            <p><i class="fa-solid fa-envelope"></i> Email: duy2912www@gmail.com</p>
+            <h4>Đóng góp ý kiến</h4>
+            <p><a href="/" style="color: orangered">PetShop</a> luôn lắng nghe tiếp nhận mọi ý kiến đóng góp của bạn. Hãy liên hệ với chúng tôi bằng cách điền thông tin form bên dưới. Chúng tôi sẽ phản hồi thời gian sớm nhất.</p>
+            <div class="form-group">
+                <div class="control-label">Họ tên</div>
+                <div>
+                    <input type="text" name="Name" class="col-10" placeholder="Nhập họ tên..." />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">Email</div>
+                <div>
+                    <input type="text" name="Email" class="col-10" placeholder="Nhập email..." />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">Điện thoại</div>
+                <div>
+                    <input type="text" name="Phone" class="col-10" placeholder="Nhập số điện thoại..." />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">Nội dung</div>
+                <textarea type="text" name="Content" class="col-10" placeholder="Ý kiến của bạn..." style="height: 90px;"></textarea>
+            </div>
+            <button class="btn btn-primary">Xác nhận</button>
+        </div>
+        <div class="col-6">
+            <div id="google_map">
+                <h4>Vị trí cửa hàng</h4>
+                <div class="map_container">
+                    <div id="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125706.84282250526!2d106.27595767822994!3d10.07129753140233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0058321130835%3A0xf469c3aeca29575!2zTeG7jyBDw6B5IE5hbSwgQuG6v24gVHJlLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1734850455289!5m2!1svi!2s" width="100%" height="572" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/contact_custom.js"></script>
+}

@@ -1,0 +1,66 @@
+﻿﻿@model WebBanHangOnline.Models.EF.Posts
+@{
+    ViewBag.Title = "Chi tiết khuyến mãi";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+
+
+<style>
+    .news_section_container {
+        margin-top: 125px;
+        font-family: Arial;
+    }
+
+    .row-item-new {
+        margin-bottom: 20px;
+    }
+
+    .title-news {
+        font-size: 35px;
+        border-bottom: 1px solid;
+        padding-bottom: 15px;
+        padding-top: 25px;
+        margin-bottom: 25px;
+    }
+
+    .img-box img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    #breadcrumbs {
+        height: 50px;
+    }
+</style>
+<div class="container news_section_container">
+    <div class="row" id="breadcrumbs">
+        <div class="col">
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Trang chủ </a></li>
+                    <li><a href="/khuyen-mai"><i class="fa fa-angle-right" aria-hidden="true"></i>Khuyến mãi</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Title</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="title-news text-center" style="color: firebrick;">@Model.Title</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Model.Description
+            </div>
+            <div class="col-md-12">
+                @Html.Raw(Model.Detail)
+            </div>
+        </div>
+    }
+
+</div>

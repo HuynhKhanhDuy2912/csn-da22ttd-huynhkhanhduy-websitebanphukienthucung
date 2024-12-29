@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WebBanHangOnline.Models.EF.ProductCategory>
+
+<style>
+    .banner_item {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        background-position: center;
+        overflow: hidden;
+        transition: transform 0.5s ease;
+        margin-top: 20px;
+    }
+
+    .banner_item:hover {
+        transform: scale(1.2) rotate(5deg);
+    }
+
+    .banner_category {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px 10px;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        margin-top: 40px;
+    }
+
+    .banner_category a {
+        font-family: 'Times New Roman';
+        color: aliceblue;
+    }
+
+    .banner_item:hover .banner_category {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: aliceblue;
+    }
+
+    .banner_item:hover .banner_category a{
+        color: black;
+    }
+
+</style>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        <div class="col text-center">
+            <div class="section_title new_arrivals_title">
+                <h2>Danh Mục Sản Phẩm</h2>
+            </div>
+        </div>
+    </div>
+    <div class="banner">
+        <div class="container">
+            <div class="row g-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4" style="padding-left: 30px; padding-right: 30px;">
+                        <div class="banner_item" style="background-image: url(@item.Icon)">
+                            <div class="banner_category">
+                                <a href="/danh-muc-san-pham/@item.Alias-@(item.Id)">@item.Title</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
